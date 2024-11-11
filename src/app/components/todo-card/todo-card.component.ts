@@ -160,6 +160,7 @@ export class TodoCardComponent implements OnInit {
         if(response?.status == 200){
           let token = response.data != null ? response.data : '';
           sessionStorage.setItem('authToken', token);
+          this.getTasks();
           this.showTodo = true;
           console.log('Token guardado en sessionStorage');
         }
