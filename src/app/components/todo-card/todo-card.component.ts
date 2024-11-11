@@ -196,6 +196,7 @@ export class TodoCardComponent implements OnInit {
 
   Return(){
     this.getTasks();
+    this.clearInfo();
     this.btnReturn = false;
     this.showTodo = true;
     this.showCreateUpdated = false;
