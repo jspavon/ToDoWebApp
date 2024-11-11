@@ -6,8 +6,17 @@
 
     <!--Get Token :: Inicio -->
     <div class="card-body" *ngIf="!showTodo && !showCreateUpdated && !isUpdate">
-      <input type="text" [(ngModel)]="user" class="input-style" name="userName" value="">
-      <input type="text" [(ngModel)]="pass" class="input-style" name="userName" value="">
+
+      <div class="form-group">
+        <label class="lblCreate">Usuario</label>
+        <input type="text" [(ngModel)]="user" class="input-style-create" name="userName" value="">
+      </div>
+
+      <div class="form-group">
+        <label class="lblCreate">Password</label>
+        <input type="text" [(ngModel)]="pass" class="input-style-create" name="userName" value="">
+      </div>
+      
       <br>
       <button class="success-btn" (click)="getToken()">
         Generar token

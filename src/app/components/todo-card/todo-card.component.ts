@@ -38,7 +38,11 @@ export class TodoCardComponent implements OnInit {
 
   ngOnInit() {
     var token = sessionStorage.getItem('authToken')
-    this.showTodo = token != null ? true : false;
+    if(token != null){
+      this.showTodo = false;
+      this.showCreateUpdated = false;
+      this.isUpdate = false;
+    }
     this.getTasks();
   }
 
