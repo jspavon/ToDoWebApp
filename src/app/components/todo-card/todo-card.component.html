@@ -1,0 +1,117 @@
+<div class="container">
+  <div class="bar">
+    <img alt="Iris Logo" src="https://empresas.iris.com.co/login/assets/img/logos/Logo-Iris.svg">
+  </div>
+  <div class="card">
+
+    <!--Get Token :: Inicio -->
+    <div class="card-body" *ngIf="!showTodo && !showCreateUpdated && !isUpdate">
+      <input type="text" [(ngModel)]="user" class="input-style" name="userName" value="">
+      <input type="text" [(ngModel)]="pass" class="input-style" name="userName" value="">
+      <br>
+      <button class="success-btn" (click)="getToken()">
+        Generar token
+      </button>
+      <br>
+      <label>{{messageAuth}}</label>
+    </div>
+    <!--Get Token :: Fin -->
+
+    <!------------------------------------------------------------->
+
+    <!--List Task :: Inicio -->
+    <div class="card-body" *ngIf="showTodo && !showCreateUpdated && !isUpdate">
+      <form id="task-form" action="" >
+        <h1 class="title">To do list</h1>
+        <select [(ngModel)]="selectedTag" (change)="filterTasks()" class="input-style" name="tagSelect">
+          @for (task of uniqueTasks; track $index) {
+            <option [value]="task.tag">{{ task.tag }}</option>
+          }
+        </select>
+
+        <div class="input-container">
+          <input class="input-style" type="text" placeholder="Task title">
+
+          <button class="buttonFloating floating-btn" type="button" (click)="CreateUpdatedShow(false, null)">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+
+        <h2 class="subtitle">{{ selectedTag }}</h2>
+        <div class="tasks-values">
+          @for (task of filteredTasks; track $index) {
+            <div class="task-container">
+              <label class="tasks">
+                <input (change)="completedTask(task)" class="task" type="checkbox" name="task" [checked]="task.completed">
+                <span [ngClass]="{'completed': task.completed}">
+                  {{ task.title }}
+                </span>
+              </label>
+              
+              <button class="delete-btn" type="button" (click)="CreateUpdatedShow(true, task)">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button class="delete-btn" type="button" (click)="deleteTask(task.id)">
+                <i class="fa-solid fa-xmark" style="color: #ef6f47;"></i>
+              </button>
+            </div>            
+          }
+          <label *ngIf="showDeleted">Elemento eliminado.</label>
+        </div>
+      </form>
+    </div>
+    <!--List Task :: Fin -->
+
+
+    <!------------------------------------------------------------->
+
+    <!--Create Task :: Inicio -->
+    <div class="card-body" *ngIf="!showTodo && showCreateUpdated">
+      <div class="form-group" *ngIf="isUpdate">
+        <label class="lblCreate">Id</label>
+        <input type="text" [(ngModel)]="taskId" class="input-style-create" name="userName" value="" >
+      </div>
+      <div class="form-group">
+        <label class="lblCreate">Titulo</label>
+        <input type="text" [(ngModel)]="taskTittle" class="input-style-create" name="userName" value="">
+      </div>
+      <div class="form-group">
+
+        <label class="lblCreate">Tag</label>
+        
+        <select [(ngModel)]="taskTag" class="input-style-create" name="tagSelect">
+          @for (task of uniqueTasks; track $index) {
+            <option [value]="task.tag">{{ task.tag }}</option>
+          }
+        </select>
+      </div>
+      <div class="form-group" *ngIf="isUpdate">
+        <label class="lblCreate">Completado</label>
+        <input class="input-style-create" [(ngModel)]="taskCompleted" type="checkbox" [value]="true" (change)="onCheckboxChange()">
+      </div>
+      
+      <br>
+
+      <button class="success-btn" (click)="createTask()" *ngIf="!isUpdate && !btnReturn">
+        Crear
+      </button>
+      <br>
+      <button class="success-btn" (click)="updateTask()" *ngIf="isUpdate && !btnReturn">
+        Actualizar
+      </button>
+      <br>
+      <button class="cancel-btn" (click)="CreateUpdatedHide()" *ngIf="!btnReturn">
+        Cancelar
+      </button>      
+      <br>
+      <button class="cancel-btn" (click)="Return()" *ngIf="btnReturn">
+        Volver
+      </button>
+      <br>
+      <label>{{taskMessage}}</label>
+    </div>
+    <!--Create Task :: Fin -->
+  </div>
+</div>
+
+
